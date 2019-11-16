@@ -4,7 +4,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import MobileHomeScreen from './src/containers/MobileHomeScreen';
 import AddForm from './src/mobileAPP/AddForm';
-import Detail from './src/mobileAPP/MobileDetail'
+import MobileDetail from './src/mobileAPP/MobileDetail';
 import rootReducer from './src/reducers';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
@@ -16,7 +16,7 @@ const RootStack = createStackNavigator(
   {
   Home: {screen: MobileHomeScreen},
   Add: {screen: AddForm},
-  Detail: {screen: Detail}
+  Detail: {screen: MobileDetail}
   },
   {
     initialRouteName: 'Home'

@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, View } from "react-native";
+import { Image, View , TouchableOpacity} from "react-native";
 import { Container, Header, Title, Left, Icon, Right, Button, Body, Content, Text, Card, CardItem, Thumbnail, List, ListItem } from "native-base";
 import { connect } from 'react-redux'
 import { loadData } from '../actions/data'
@@ -39,9 +39,11 @@ class MobileHomeScreen extends React.Component {
                         </Body>
                     </Right>
                     <Left>
-                        <Button full rounded dark
+                        <Button full rounded dark>
+                        <TouchableOpacity 
                             onPress={() => this.props.navigation.navigate("Add")}>
                             <Text>Add Data</Text>
+                        </TouchableOpacity>
                         </Button>
                     </Left>
                 </Header>

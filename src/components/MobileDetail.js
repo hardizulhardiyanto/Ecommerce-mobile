@@ -1,13 +1,43 @@
 import React from "react";
 import { Image } from "react-native";
+import ItemImage from "../components/mobileDetail/ItemImage";
+
 
 import { Container, Header, Picker, ListItem, Radio, Form, Item, Label, Input, Title, Left, Icon, Textarea, Right, Button, Body, Content, Text, Card, CardItem, Row } from "native-base";
 
-export default class Test extends React.Component {
+export default class MobileDetail extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      color: null,
+      capacity: null,
+      size: null,
+      clicks: 0,
+      show: false,
+      liked: false,
+      showModal: false,
+      activeTab: "detail",
+      showAlert: false
+    };
+  }
+
+  componentDidMount() {
+    this.props.loadDetail(this.props.itemId);
+  }
+
 
 
   render() {
 
+    let { detail, testimonials } = this.props;
+    let colors = detail.colors || [];
+    let capacity = detail.capacity || [];
+    let sizes = detail.sizes || [];
+    let { filename , title, brand, vote, rate, price, category, stock }= detail;
+    testimonials = testimonials || [];
+    let numberOfLines = testimonials.length;
+    
     return (
       <Container>
         <Header>
