@@ -20,24 +20,28 @@ export default class MobileDetail extends React.Component {
       activeTab: "detail",
       showAlert: false
     };
+
+
   }
 
   componentDidMount() {
-    this.props.loadDetail(this.props.itemId);
+    this.props.LoadItemDetail(this.props._Id);
   }
-
-
-
+  
+  
   render() {
-
-    let { detail, testimonials } = this.props;
-    let colors = detail.colors || [];
-    let capacity = detail.capacity || [];
-    let sizes = detail.sizes || [];
-    let { filename , title, brand, vote, rate, price, category, stock }= detail;
-    testimonials = testimonials || [];
-    let numberOfLines = testimonials.length;
     
+    let { MbDetail, MbTestimonials } = this.props;
+    // let colors = MbDetail.colors || [];
+    // let capacity = MbDetail.capacity || [];
+    // let sizes = MbDetail.sizes || [];
+    // let { filename, title, brand, vote, rate, price, category, stock } = MbDetail;
+    // testimonials = testimonials || [];
+    // let numberOfLines = MbTestimonials.length;
+    
+    console.log('data MB Component > ', MbDetail);
+
+
     return (
       <Container>
         <Header>
@@ -50,9 +54,9 @@ export default class MobileDetail extends React.Component {
         <Content>
           <ListItem>
             <Card>
-              <CardItem cardBody>
-                <Image source={require('../stylesheets/xiaomi-mi-9-2.jpg')} style={{ width: 320, height: 300 }} resizeMode="contain" />
-              </CardItem>
+
+              <ItemImage />
+
               <CardItem style={{ width: 200 }}>
                 <Text numberOfLines={1}> Name Product </Text>
               </CardItem>

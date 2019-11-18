@@ -5,6 +5,7 @@ import { Container, Header, Title, Left, Icon, Right, Button, Body, Content, Tex
 export default function MobileItem(props) {
 
     let {
+        _id,
         itemId,
         filename,
         title,
@@ -13,15 +14,13 @@ export default function MobileItem(props) {
         price,
         testimonials,
         showDetail,
-        colRate
+        colRate,
+        navigation
 
 
     } = props;
 
     let itemImage = { uri: filename };
-
-
-
 
     return (
 
@@ -44,10 +43,11 @@ export default function MobileItem(props) {
                         <CardItem style={{ width: 200 }}>
                             <Text>{price}</Text>
                         </CardItem>
-                        <Button
-                            title="Press me"
-                            onPress={() => Alert.alert('Simple Button pressed')}
-                        />
+                        <TouchableOpacity>
+                            <Button full rounded onPress={() => {showDetail(_id); props.navigation.navigate('Detail')}}>
+                                <Text>Detail</Text>
+                            </Button>
+                        </TouchableOpacity>
                     </View>
                 </Card>
             </ListItem>

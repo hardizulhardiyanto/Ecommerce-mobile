@@ -4,7 +4,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import MobileHomeScreen from './src/containers/MobileHomeScreen';
 import AddForm from './src/mobileAPP/AddForm';
-import MobileDetail from './src/mobileAPP/MobileDetail';
+import MobileDetail from './src/containers/MobileDetail';
 import rootReducer from './src/reducers';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';

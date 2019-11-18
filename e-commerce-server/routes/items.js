@@ -2,7 +2,9 @@ const express = require("express");
 const router = express.Router();
 const Item = require("../models/item");
 const path = require("path");
-const serverSite = "http://192.168.100.3:3001";
+const serverSite = "http://192.168.42.234:3001";
+
+
 
 const defaultSortBy = [
   { field: "rate", asc: false },
@@ -10,11 +12,29 @@ const defaultSortBy = [
   { field: "vote", asc: false }
 ];
 
+//get detail
+router.get('/:_id', (req, res, next) => {
+
+  Item.findById({ _id: req.params._id })
+  .then((Item) => {
+    res.status(201).json({
+      success: true,
+      message: "succes!! Data Found",
+      Item
+
+    })
+
+  })
+  .catch(err => res.json({ error: true, message: err }));
+
+})
+
+
 // get list
 router.get("/", (req, res) => {
-  
+
   console.log('get data===========');
-  
+
   let sortBy = JSON.parse(
     req.header("sortBy") || JSON.stringify(defaultSortBy)
   );
@@ -30,7 +50,9 @@ router.get("/", (req, res) => {
     .count("count")
     .exec()
     .then(result => {
+
       let numOfPages = result[0] ? Math.ceil(result[0].count / limit) : 0;
+
       Item.aggregate()
         .collation({ locale: "id" })
         .sort(sortBy)
@@ -39,22 +61,21 @@ router.get("/", (req, res) => {
         .exec()
         .then(items =>
           res.json({
+
             error: false,
             numOfPages,
             items: items.map(item => ({
               ...item,
               filename: serverSite + item.filename
             }))
-            
           })
-          )
-          .catch(err => res.json({ error: true, message: err }));        
-        })
+        )
         .catch(err => res.json({ error: true, message: err }));
+    })
+    .catch(err => res.json({ error: true, message: err }));
 
-        
-      });
-      
+});
+
 // filter
 router.post("/filter", (req, res) => {
   console.log('get data===========');

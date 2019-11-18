@@ -1,19 +1,20 @@
 import { connect } from "react-redux";
 import MobileDetail from "../components/MobileDetail";
-import { loadDetail, buyItem, likeItem } from "../actions/detail";
+import { LoadItemDetail, buyItem, likeItem } from "../actions/detail";
 import { loadTestimonials } from "../actions/testimonial";
 
-const mapStateToProps = state => ({
-  ...state.detailTestimonial
+const mapStateToProps = (state) => ({
+  MbDetail_Loaded: state.storeDetail
 });
 
 const mapDispatchToProps = dispatch => ({
-  loadDetail: itemId => {
-    dispatch(loadDetail(itemId))
-    dispatch(loadTestimonials(itemId))
-  },
-  buyItem: (itemId, stock) => dispatch(buyItem({ itemId, stock })),
-  likeItem: (itemId, vote) => dispatch(likeItem({ itemId, vote }))
+  LoadItemDetail: _id => {
+    dispatch(LoadItemDetail(_id))
+    // dispatch(loadTestimonials(_id))
+  }
+  // },
+  // buyItem: (_id, stock) => dispatch(buyItem({ _id, stock })),
+  // likeItem: (_id, vote) => dispatch(likeItem({ _id, vote }))
 });
 
 export default connect(

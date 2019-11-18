@@ -4,6 +4,12 @@ import { Image } from "react-native";
 import { Container, Header, Picker, ListItem, Radio, Form, Item, Label, Input, Title, Left, Icon, Textarea, Right, Button, Body, Content, Text, Card, CardItem, Row } from "native-base";
 
 export default function ({ filename }) {
+    
+
+    let itemImage = { uri: filename };
+    console.log('data image > ', itemImage);
+    
+
     return(
 
     <CardItem cardBody>

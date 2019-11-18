@@ -38,6 +38,7 @@ export const loadData = (
     return request
       .get("", config)
       .then(result => {
+        
         let response = result.data;
         let { error, numOfPages, items } = response;
         if (error) dispatch(loadDataFailure());

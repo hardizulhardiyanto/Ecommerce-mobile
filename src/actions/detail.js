@@ -7,8 +7,48 @@ import {
   LIKE_ITEM_FAILURE,
   BUY_ITEM,
   BUY_ITEM_SUCCESS,
-  BUY_ITEM_FAILURE
+  BUY_ITEM_FAILURE,
+  LOAD_ITEMDETAIL_SUCCESS,
+  LOAD_ITEMDETAIL_FAILURE
+
+
 } from "../constants/actionTypes";
+
+
+
+// Start Load Detail Mobile
+      
+const loadItemDetailSuccess = (MbDetail_Loaded) => ({
+  type: 'LOAD_ITEMDETAIL_SUCCESS',
+  MbDetail_Loaded
+  
+})
+
+
+
+const loadItemDataFailure = MbDetail_UnLoaded => ({
+  type: LOAD_ITEMDETAIL_FAILURE,
+  MbDetail_UnLoaded
+})
+
+
+export const LoadItemDetail = _id => {
+
+  return dispatch => {
+    return request.get(_id)
+    .then(response => {
+      dispatch(loadItemDetailSuccess(response.data))
+    })
+    .catch(function (error) {
+      console.error(error);
+      dispatch(loadItemDataFailure())
+    });
+  }
+}
+
+
+
+
 
 // LOAD ITEM DETAIL
 const loadDetailRedux = itemLoaded => ({
@@ -20,6 +60,7 @@ export const loadDetail = itemId => {
   return (dispatch, getState) => {
     let { data, router } = getState();
     let itemLoaded = JSON.parse(localStorage.getItem("itemLoaded") || "{}");
+
     if (itemLoaded === {} || itemLoaded.itemId !== itemId) {
       let { items } = data;
       if (itemId) localStorage.setItem("itemId", itemId);

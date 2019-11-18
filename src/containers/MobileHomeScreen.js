@@ -50,6 +50,7 @@ class MobileHomeScreen extends React.Component {
                     <Content>
                         {items.map((item, i) => (
                             <MobileItem
+                                navigation={this.props.navigation}
                                 Key={item.itemId}
                                 {...item}
                             />

@@ -1,9 +1,9 @@
 import { connect } from "react-redux";
 import MobileItem from "../components/MobileItem";
-import { loadDetail } from "../actions/detail";
+import { LoadItemDetail } from "../actions/detail";
 
 const mapDispatchToProps = dispatch => ({
-  showDetail: itemId => dispatch(loadDetail(itemId))
+  showDetail: _id => dispatch(LoadItemDetail(_id))
 });
 
 export default connect(
