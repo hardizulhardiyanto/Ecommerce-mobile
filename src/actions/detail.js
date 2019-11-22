@@ -48,7 +48,6 @@ export const LoadItemDetail = _id => {
 
 
 
-
 // LOAD ITEM DETAIL
 const loadDetailRedux = itemLoaded => ({
   type: LOAD_DETAIL,

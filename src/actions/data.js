@@ -18,6 +18,38 @@ const defaultSortBy = [
   { field: "vote", asc: false }
 ];
 
+
+// POST MOBILE PRODUCT
+
+export const postReduxMobile = (rate,capacity,title,brand,description,price,stok,colors,detail) => ({
+  type:'POST_STORE',
+  rate,capacity,title,brand,description,price,stok,colors,detail
+})
+
+export const postProduct = (
+  rate,
+  capacity,
+  title,
+  brand,
+  description,
+  price,
+  stok,
+  colors,
+  detail) => {
+    return dispatch => {
+      dispatch(postReduxMobile(rate,capacity,title,brand,description,price,stok,colors,detail))
+      return request.post('/data',{rate,capacity,title,brand,description,price,stok,colors,detail})
+      .then(result => {
+        console.log('this result ', result.data);
+        
+      })
+      .catch(err => {
+        console.log('data eror', err);
+        
+      })
+    }
+}
+
 // START LOAD DATA
 const loadDataSuccess = (items, { numOfPages, limit, page }, sortBy) => ({
   type: LOAD_DATA_SUCCESS,
@@ -38,7 +70,7 @@ export const loadData = (
     return request
       .get("", config)
       .then(result => {
-        
+
         let response = result.data;
         let { error, numOfPages, items } = response;
         if (error) dispatch(loadDataFailure());
@@ -104,7 +136,7 @@ const addDataRedux = item => ({ type: ADD_DATA, item });
 const addDataFailure = itemId => ({ type: ADD_DATA_FAILURE, itemId });
 
 export const addData = (item = {}) => {
-  
+
   let { colors, capacities, sizes, file } = item;
   let itemId = Date.now();
   let filename = file.name;

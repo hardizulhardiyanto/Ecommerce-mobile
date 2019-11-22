@@ -12,20 +12,65 @@ const defaultSortBy = [
   { field: "vote", asc: false }
 ];
 
-//get detail
+//get detail mobile
 router.get('/:_id', (req, res, next) => {
 
   Item.findById({ _id: req.params._id })
-  .then((Item) => {
-    res.status(201).json({
-      success: true,
-      message: "succes!! Data Found",
-      Item
+    .then((Item) => {
+      res.status(201).json({
+        success: true,
+        message: "succes!! Data Found",
+        Item
 
+      })
     })
-  })
-  .catch(err => res.json({ error: true, message: err }));
+    .catch(err => res.json({ error: true, message: err }));
 
+})
+
+// post mobile
+
+router.post('/data', (req, res, next) => {
+  console.log('POST data mobile===========');
+  console.log('req body > ', req.body);
+  
+  const {
+    rate,
+    capacity,
+    title,
+    brand,
+    description,
+    price,
+    stok,
+    colors,
+    detail } = req.body;
+
+  let response = {
+    status: true,
+    message: 'data have been added',
+    data: null
+  }
+  let item = new Item({
+    rate,
+    capacity,
+    title,
+    brand,
+    description,
+    price,
+    stok,
+    colors,
+    detail
+  })
+
+  // item.save().then(data => {
+  //   res.status(200).json(
+  //     response.status = true,
+  //     data
+  //   )
+  // }).catch(err => {
+  //   response.status = false,
+  //     response.message = 'can not add'
+  // })
 })
 
 
