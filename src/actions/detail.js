@@ -17,14 +17,15 @@ import {
 
 
 // Start Load Detail Mobile
-      
-const loadItemDetailSuccess = (MbDetail_Loaded) => ({
+
+
+const loadItemDetailSuccess = (productDetail) => ({
   type: 'LOAD_ITEMDETAIL_SUCCESS',
-  MbDetail_Loaded
+  productDetail
   
 })
 
-
+/*  */
 
 const loadItemDataFailure = MbDetail_UnLoaded => ({
   type: LOAD_ITEMDETAIL_FAILURE,
@@ -33,14 +34,12 @@ const loadItemDataFailure = MbDetail_UnLoaded => ({
 
 
 export const LoadItemDetail = _id => {
-
   return dispatch => {
     return request.get(_id)
     .then(response => {
-      dispatch(loadItemDetailSuccess(response.data))
+      dispatch(loadItemDetailSuccess(response.data.Item))
     })
     .catch(function (error) {
-      console.error(error);
       dispatch(loadItemDataFailure())
     });
   }

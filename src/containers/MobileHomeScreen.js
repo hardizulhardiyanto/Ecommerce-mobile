@@ -32,7 +32,7 @@ class MobileHomeScreen extends React.Component {
         
         return (
             <Container>
-                <Header>
+                <Header style={{ backgroundColor: '#156cb3' }}>
                     <Right>
                         <Body>
                             <Title>Ecommerce App</Title>

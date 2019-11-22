@@ -3,7 +3,7 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
 import MobileHomeScreen from './src/containers/MobileHomeScreen';
-import AddForm from './src/mobileAPP/AddForm';
+import AddForm from './src/components/MobileAddForm';
 import MobileDetail from './src/containers/MobileDetail';
 import rootReducer from './src/reducers';
 import { createStore, applyMiddleware } from 'redux';
@@ -19,7 +19,7 @@ const RootStack = createStackNavigator(
   Detail: {screen: MobileDetail}
   },
   {
-    initialRouteName: 'Home'
+    initialRouteName: 'Home', headerMode:"none"
   }
   );
 

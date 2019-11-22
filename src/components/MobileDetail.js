@@ -1,50 +1,70 @@
 import React from "react";
-import { Image } from "react-native";
-import ItemImage from "../components/mobileDetail/ItemImage";
+import { request } from "../helpers/accessAPI";
+import { Image, View } from "react-native";
+// import ItemImage from "../components/mobileDetail/ItemImage";
 
 
-import { Container, Header, Picker, ListItem, Radio, Form, Item, Label, Input, Title, Left, Icon, Textarea, Right, Button, Body, Content, Text, Card, CardItem, Row } from "native-base";
+import { Container, Header, Picker, ListItem, Radio, Form, Item, Label, Input, Title, Left, Icon, Textarea, Right, Button, Body, Content, Text, Card, CardItem, List, Items, Row } from "native-base";
 
 export default class MobileDetail extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      color: null,
-      capacity: null,
-      size: null,
-      clicks: 0,
-      show: false,
-      liked: false,
-      showModal: false,
-      activeTab: "detail",
-      showAlert: false
+      colors: [''],
+      capacities: [],
+      sizes: [],
+      testimonials: [],
+      _id: '',
+      itemId: '',
+      title: '',
+      price: '',
+      description: '',
+      detail: '',
+      brand: '',
+      stock: '',
+      filename: '',
+      vote: '',
+      rate: ''
+
     };
 
 
   }
 
-  componentDidMount() {
-    this.props.LoadItemDetail(this.props._Id);
-  }
-  
-  
+
+
   render() {
-    
-    let { MbDetail, MbTestimonials } = this.props;
-    // let colors = MbDetail.colors || [];
-    // let capacity = MbDetail.capacity || [];
-    // let sizes = MbDetail.sizes || [];
-    // let { filename, title, brand, vote, rate, price, category, stock } = MbDetail;
+    let http = "http://192.168.42.234:3001"
+
+
+    let {
+      title,
+      filename,
+      brand,
+      vote,
+      rate,
+      price,
+      stock,
+      colors,
+      description,
+      detail } = this.props.productDetail;
+
+    const items = ['Daniel Michael Blake Day-Lewis', 'Kiefer William Frederick Dempsey George Rufus Sutherland', 'Isabella Fiorella Elettra Giovanna Rossellini', 'Charles Philip Arthur George Mountbatten-Windsor', 'Johannes Chrysostomus Wolfgangus Theophilus Mozart'];
+
+
+
+    let uri = http + filename
+    let fileImage = { uri }
+    // let capacity = productDetail.capacity || [];
+    // let sizes = productDetail.sizes || [];
     // testimonials = testimonials || [];
     // let numberOfLines = MbTestimonials.length;
-    
-    console.log('data MB Component > ', MbDetail);
-
+    // let itemImage = { uri: filename };
 
     return (
       <Container>
-        <Header>
+        <Header style={{ backgroundColor: '#156cb3' }}>
           <Right>
             <Body>
               <Title>Detail Product</Title>
@@ -54,40 +74,63 @@ export default class MobileDetail extends React.Component {
         <Content>
           <ListItem>
             <Card>
+              <List dataArray={items}
+                horizontal
+                renderRow={(item) =>
+                  <ListItem>
+                    <Card>
+                      <CardItem style={{ backgroundColor: '#156cb3' }}>
+                        <Image source={require('../stylesheets/xiaomi-mi-9-2.jpg')} style={{ width: 300, height: 300, justifyContent: 'center' }} resizeMode="contain" />
+                      </CardItem>
+                    </Card>
+                  </ListItem>
+                }>
+              </List>
 
-              <ItemImage />
+              {/* <CardItem cardBody>
+                <Image source={fileImage} style={{ width: 320, height: 300 }} resizeMode="contain" />
+              </CardItem> */}
+              <CardItem>
+                <Text style={{ fontSize: 30 }}> {title} </Text>
+              </CardItem>
+              <Item style={{ width: 300 }}>
+                <Text style={{ color: 'blue' }}> {`brand : ${brand}. (${vote}Votes)`} </Text>
+              </Item>
+              <Item>
+                <Label>Rate : </Label>
+                <Text> {rate} </Text>
+              </Item>
+              <Item stackedLabel>
+                <Label style={{ fontSize: 17 }}>Description : </Label>
+                <Text style={{ width: 280 }} >
+                  {description}
+                </Text>
+              </Item>
+              <Item>
+                <Label>Price : </Label>
+                <Text> {price} </Text>
+              </Item>
+              <Item>
+                <Label>Colors : </Label>
+                <Text> {colors} </Text>
+              </Item>
+              <Item>
+                <Label>Stock : </Label>
+                <Text> {stock} </Text>
+              </Item>
+              <Item stackedLabel>
+                <Label style={{ fontSize: 17 }} >Detail : </Label>
+                <Text style={{ width: 280 }} >
+                  {detail}
+                </Text>
+              </Item>
 
-              <CardItem style={{ width: 200 }}>
-                <Text numberOfLines={1}> Name Product </Text>
-              </CardItem>
-              <CardItem style={{ width: 200 }}>
-                <Text> Rate </Text>
-              </CardItem>
-              <CardItem style={{ width: 200 }}>
-                <Text> Description </Text>
-              </CardItem>
-              <CardItem style={{ width: 200 }}>
-                <Text> Price: Rp.12.500 </Text>
-              </CardItem>
-              <Button full rounded
-                onPress={() => this.props.navigation.navigate("Add")}>
-                <Text style={{ justifyContent: "flex-start" }}>Detail</Text>
+              <Button full rounded success
+                onPress={() => this.props.navigation.navigate("Home")} style={{ margin: 20 }}>
+                <Text style={{ justifyContent: "flex-start" }}>Back</Text>
               </Button>
             </Card>
           </ListItem>
-          <Row>
-            <Button bordered danger style={{ margin: 20, }}
-              onPress={() => this.props.navigation.navigate("Home")}
-            >
-
-              <Text>Cancle</Text>
-            </Button>
-            <Button bordered primary style={{
-              padding: '10%', margin: 20, left: 50
-            }}>
-              <Text>Save</Text>
-            </Button>
-          </Row>
         </Content>
       </Container>
     );

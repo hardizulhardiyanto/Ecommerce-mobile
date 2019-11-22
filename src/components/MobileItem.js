@@ -21,6 +21,7 @@ export default function MobileItem(props) {
     } = props;
 
     let itemImage = { uri: filename };
+    
 
     return (
 

@@ -23,7 +23,6 @@ router.get('/:_id', (req, res, next) => {
       Item
 
     })
-
   })
   .catch(err => res.json({ error: true, message: err }));
 

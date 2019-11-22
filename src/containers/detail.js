@@ -3,8 +3,8 @@ import Detail from "../components/detail";
 import { loadDetail, buyItem, likeItem } from "../actions/detail";
 import { loadTestimonials } from "../actions/testimonial";
 
-const mapStateToProps = (state) => ({
-  MbDetail_Loaded: state.MbDetail
+const mapStateToProps = state => ({
+  ...state.detailTestimonial
 });
 
 const mapDispatchToProps = dispatch => ({
