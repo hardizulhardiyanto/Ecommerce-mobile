@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Item = require("../models/item");
 const path = require("path");
-const serverSite = "http://192.168.42.234:3001";
+const serverSite = "http://192.168.43.86:3001";
 
 
 

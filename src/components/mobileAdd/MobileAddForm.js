@@ -4,7 +4,7 @@ import { StyleSheet, View, TextInput } from 'react-native';
 import { Container, Header, Picker, ListItem, Radio, Form, Item, Label, Input, Title, Left, Icon, Textarea, Right, Button, Body, Content, Text, Card, CardItem, Row } from "native-base";
 import { dispatch } from "rxjs/internal/observable/pairs";
 
-import {postProduct} from "../actions/data";
+import {postProduct} from "../../actions/data";
 
 class MobileAddForm extends React.Component {
 
@@ -72,6 +72,7 @@ class MobileAddForm extends React.Component {
       rate: value
     });
   }
+  
 
   addButtonAction() {
     console.log('state > ', this.state.title);
@@ -190,11 +191,11 @@ class MobileAddForm extends React.Component {
                       selectedValue={this.state.capacity}
                       onValueChange={this.onValueChangeCapacity.bind(this)}
                     >
-                      <Picker.Item label="16GB" value="key0" />
-                      <Picker.Item label="32GB" value="key1" />
-                      <Picker.Item label="64GB" value="key2" />
-                      <Picker.Item label="128GB" value="key3" />
-                      <Picker.Item label="256GB" value="key4" />
+                      <Picker.Item label="16GB" value="16GB" />
+                      <Picker.Item label="32GB" value="32GB" />
+                      <Picker.Item label="64GB" value="64GB" />
+                      <Picker.Item label="128GB" value="128GB" />
+                      <Picker.Item label="256GB" value="256GB" />
                     </Picker>
                   </Item>
                 </Form>
