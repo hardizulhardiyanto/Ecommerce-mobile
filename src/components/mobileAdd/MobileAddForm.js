@@ -1,10 +1,23 @@
 import React from "react";
-import {connect} from "react-redux";
-import { StyleSheet, View, TextInput } from 'react-native';
-import { Container, Header, Picker, ListItem, Radio, Form, Item, Label, Input, Title, Left, Icon, Textarea, Right, Button, Body, Content, Text, Card, CardItem, Row } from "native-base";
-import { dispatch } from "rxjs/internal/observable/pairs";
+import { connect } from "react-redux";
 
-import {postProduct} from "../../actions/data";
+import {
+  StyleSheet,
+  View,
+  TextInput,
+  AppRegistry,
+  Text,
+  PixelRatio,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
+
+import { Container, Header, Picker, ListItem, Radio, Form, Item, Label, Input, Title, Left, Icon, Textarea, Right, Button, Body, Content, Card, CardItem, Row } from "native-base";
+
+import ImagePicker from 'react-native-image-picker';
+
+
+import { postProduct } from "../../actions/data";
 
 class MobileAddForm extends React.Component {
 
@@ -19,7 +32,9 @@ class MobileAddForm extends React.Component {
       price: '',
       stok: '',
       colors: '',
-      detail: ''
+      detail: '',
+      uploadImg: null,
+      filename: ''
     };
     this.handleTitle = this.handleTitle.bind(this);
     this.handleBrand = this.handleBrand.bind(this);
@@ -72,10 +87,49 @@ class MobileAddForm extends React.Component {
       rate: value
     });
   }
-  
+
+
+  selectPhotoTapped() {
+    const options = {
+      quality: 1.0,
+      maxWidth: 500,
+      maxHeight: 500,
+      storageOptions: {
+        skipBackup: true
+      }
+    };
+
+    ImagePicker.showImagePicker(options, (response) => {
+      // console.log('Response = ', response);
+
+      if (response.didCancel) {
+        console.log('User cancelled photo picker');
+      }
+      else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      }
+      else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      }
+      else {
+        let dataRes = response.fileName;
+        let source = { uri: response.uri };
+
+        // You can also display the image using data:
+        // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+
+        this.setState({
+
+          uploadImg: source,
+          filename: dataRes
+
+        });
+      }
+    });
+  }
 
   addButtonAction() {
-    console.log('state > ', this.state.title);
+
     
     this.props.postProduct(
       this.state.rate,
@@ -86,17 +140,21 @@ class MobileAddForm extends React.Component {
       this.state.price,
       this.state.stok,
       this.state.colors,
-      this.state.detail);
+      this.state.detail,
+      this.state.filename);
 
-    this.setState({ rate: '',
-    capacity: '',
-    title: '',
-    brand: '',
-    description: '',
-    price: '',
-    stok: '',
-    colors: '',
-    detail: '' })
+    // this.setState({
+    //   rate: '',
+    //   capacity: '',
+    //   title: '',
+    //   brand: '',
+    //   description: '',
+    //   price: '',
+    //   stok: '',
+    //   colors: '',
+    //   detail: '',
+    //   filename: ''
+    // })
 
   }
 
@@ -214,17 +272,28 @@ class MobileAddForm extends React.Component {
 
             <Item>
               <Label>Insert Image</Label>
-              <Input />
+
+              <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+
+                <View style={styles.ImageContainer}>
+
+                  {this.state.uploadImg === null ? <Text>Select a Photo</Text> :
+                    <Image style={styles.ImageContainer} source={this.state.uploadImg} />
+                  }
+
+                </View>
+
+              </TouchableOpacity>
+
             </Item>
 
           </Form>
 
           <Row>
-            <Button bordered danger style={{ margin: 20, }} onPress={() => this.props.navigation.navigate("Home")}>
+            <Button bordered danger style={{ margin: 20, padding: 30 }} onPress={() => this.props.navigation.navigate("Home")}>
               <Text>Cancle</Text>
             </Button>
-            <Button bordered primary style={{
-              padding: '10%', margin: 20, left: 50
+            <Button bordered primary style={{ margin: 20, padding:40 , left: 70
             }} onPress={this.addButtonAction}>
               <Text>Save</Text>
             </Button>
@@ -236,7 +305,8 @@ class MobileAddForm extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  postProduct: (rate,
+  postProduct: (
+    rate,
     capacity,
     title,
     brand,
@@ -244,17 +314,32 @@ const mapDispatchToProps = (dispatch) => ({
     price,
     stok,
     colors,
-    detail) => dispatch(postProduct(
-      rate,
-      capacity,
-      title,
-      brand,
-      description,
-      price,
-      stok,
-      colors,
-      detail))
+    detail,
+    filename) => dispatch(postProduct( rate, capacity, title, brand, description, price, stok, colors, detail, filename))
 })
+
+const styles = StyleSheet.create({
+
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#FFF8E1'
+  },
+
+  ImageContainer: {
+    borderRadius: 10,
+    width: 100,
+    height: 100,
+    borderColor: '#9B9B9B',
+    borderWidth: 1 / PixelRatio.get(),
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#CDDC39',
+
+  },
+});
+
 export default connect(
   null,
   mapDispatchToProps

@@ -28,13 +28,20 @@ router.get('/:_id', (req, res, next) => {
 
 })
 
-// post mobile
+//postFileUpload Mobile
+router.put('/upload/:itemId', function (req, res) {
+  let idProduct = req.params.itemId
+})
 
+
+// post mobile
 router.post('/data', (req, res, next) => {
   console.log('POST data mobile===========');
   console.log('req body > ', req.body);
-  
+  console.log('req files > ', req.files);
+
   const {
+    itemId,
     rate,
     capacity,
     title,
@@ -45,12 +52,15 @@ router.post('/data', (req, res, next) => {
     colors,
     detail } = req.body;
 
+
+
   let response = {
     status: true,
     message: 'data have been added',
     data: null
   }
   let item = new Item({
+    itemId,
     rate,
     capacity,
     title,

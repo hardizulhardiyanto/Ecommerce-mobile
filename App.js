@@ -4,11 +4,14 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import MobileHomeScreen from './src/containers/MobileHomeScreen';
 import AddForm from './src/components/mobileAdd/MobileAddForm';
+// import appImagePicker from './src/components/mobileAdd/getPhoto/appImagePicker';
 import MobileDetail from './src/containers/MobileDetail';
 import rootReducer from './src/reducers';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
+
+
 
 const store = createStore(rootReducer, applyMiddleware(thunk))
 

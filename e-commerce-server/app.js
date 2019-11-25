@@ -7,6 +7,7 @@ const cors = require("cors");
 const fileUpload = require("express-fileupload");
 const itemsRouter = require("./routes/items");
 
+
 mongoose
   .connect("mongodb://localhost:27017/e-commerce-db", {
     useNewUrlParser: true,
@@ -24,7 +25,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
-app.use(fileUpload({ limits: { fileSize: 3 * 1024 * 1024 } }));
+app.use(fileUpload());
 
 app.use("/api/items", itemsRouter);
 

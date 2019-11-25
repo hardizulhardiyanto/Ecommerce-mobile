@@ -10,6 +10,7 @@ import {
   ADD_DATA,
   ADD_DATA_FAILURE
 } from "../constants/actionTypes";
+
 import { loadDetail } from "./detail";
 
 const defaultSortBy = [
@@ -21,10 +22,11 @@ const defaultSortBy = [
 
 // POST MOBILE PRODUCT
 
-export const postReduxMobile = (rate,capacity,title,brand,description,price,stok,colors,detail) => ({
+export const postReduxMobile = (rate,capacity,title,brand,description,price,stok,colors,detail,filename) => ({
   type:'POST_STORE',
-  rate,capacity,title,brand,description,price,stok,colors,detail
+  rate,capacity,title,brand,description,price,stok,colors,detail,filename
 })
+
 
 export const postProduct = (
   rate,
@@ -35,12 +37,19 @@ export const postProduct = (
   price,
   stok,
   colors,
-  detail) => {
+  detail,
+  filename) => {
+
+    let itemId = Date.now()
+
     return dispatch => {
-      dispatch(postReduxMobile(rate,capacity,title,brand,description,price,stok,colors,detail))
-      return request.post('/data',{rate,capacity,title,brand,description,price,stok,colors,detail})
+      dispatch(postReduxMobile(rate,capacity,title,brand,description,price,stok,colors,detail,filename))
+      return request.post('/data',{ itemId, rate,capacity,title,brand,description,price,stok,colors,detail})
       .then(result => {
-        console.log('this result ', result.data);
+        console.log('data result', result);
+        
+        // return request.put(`/upload/${itemID}`)
+
         
       })
       .catch(err => {
